@@ -1,0 +1,22 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+    <!-- error area start -->
+    <div class="error-area ptb--100 text-center">
+        <div class="container">
+            <div class="error-content">
+                <h2>500</h2>
+                <p>Internal Server Error!</p>
+                @if (Model.ShowRequestId)
+                {
+                    <p>
+                        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+                    </p>
+                }
+                    <p><a asp-area="" asp-controller="Home" asp-action="Index">Back to Dashboard</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- error area end -->
+ 

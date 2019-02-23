@@ -1,0 +1,30 @@
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
+        <img class="avatar user-thumb" src="~/assets/images/author/avatar.png" alt="avatar">
+        <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
+            Hello @UserManager.GetUserName(User)! <i class="fa fa-angle-down"></i>
+        </h4>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
+            <button type="submit" class="dropdown-item">Logout</button>
+            @*<a class="dropdown-item" asp-area="AzureAD" asp-controller="Account" asp-action="SignOut">Log Out</a>*@
+        </div>
+    </form>
+}
+else
+{
+    <img class="avatar user-thumb" src="~/assets/images/author/avatar.png" alt="avatar">
+    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Welcome, Guest <i class="fa fa-angle-down"></i></h4>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        @*<a class="dropdown-item" asp-area="AzureAD" asp-controller="Account" asp-action="SignIn">Sign in</a>
+        <a class="dropdown-item" asp-area="AzureAD" asp-controller="Account" asp-action="Register">Register</a>*@
+    </div>
+}

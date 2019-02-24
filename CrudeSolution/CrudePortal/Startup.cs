@@ -62,6 +62,17 @@ namespace CrudePortal
                 {
                     twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ClientId"];
                     twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ClientSecret"];
+                })
+                .AddOAuth("LinkedIn", "LinkedIn", oauthOptions =>
+                {
+                    oauthOptions.ClientId = Configuration["Authentication:LinkedIn:ClientId"];
+                    oauthOptions.ClientSecret = Configuration["Authentication:LinkedIn:ClientSecret"];
+                    oauthOptions.CallbackPath = new PathString("/signin-linkedin");
+                    oauthOptions.AuthorizationEndpoint = "https://www.linkedin.com/oauth/v2/authorization";
+                    oauthOptions.TokenEndpoint = "https://www.linkedin.com/oauth/v2/accessToken";
+                    oauthOptions.UserInformationEndpoint = "https://api.linkedin.com/v1/people/~:(id,formatted-name,email-address,picture-url)";
+                    //oauthOptions.UserInformationEndpoint = "https://api.linkedin.com/v2/me/?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))";
+                    //oauthOptions.Scope = new { "r_basicprofile", "r_emailaddress" };
                 });
         }
 

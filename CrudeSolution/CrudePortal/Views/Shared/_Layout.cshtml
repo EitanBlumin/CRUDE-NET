@@ -21,7 +21,10 @@
         </environment>*@
 
     <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"
+          asp-fallback-href="~/assets/css/fas-all.min.css"
+          asp-fallback-test-class="fab fa-microsoft">
+    <link rel="stylesheet" href="~/assets/css/fas-v4-shims.min.css">
     <link rel="stylesheet" href="~/assets/css/themify-icons.css">
     <link rel="stylesheet" href="~/assets/css/metisMenu.css">
     <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
@@ -62,7 +65,7 @@
                             <li><a asp-area="" asp-controller="Home" asp-action="About"><i class="ti-heart"></i> About</a></li>
                             <li><a asp-area="" asp-controller="Home" asp-action="Contact"><i class="ti-comment-alt"></i> Contact</a></li>
                             <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Dashboard</span></a>
+                                <a href="javascript:void(0)" class="has-arrow" aria-expanded="false"><i class="ti-dashboard"></i><span>Dashboard</span></a>
                                 <ul class="collapse">
                                     <li class="active"><a href="#">Active Menu Item</a></li>
                                     <li><a href="#">Menuitem 2</a></li>
@@ -71,18 +74,17 @@
                             </li>
                             <li><a href="#"><i class="ti-map-alt"></i><span>Not expanding</span></a></li>
                             <li>
-                                <a href="javascript:void(0)" aria-expanded="true">
-                                    <i class="fa fa-align-left"></i>
+                                <a href="javascript:void(0)" class="has-arrow" aria-expanded="false">
+                                    <i class="fas fa-align-left"></i>
                                     <span>
-                                        Multi
-                                        level menu
+                                        Multi-level menu
                                     </span>
                                 </a>
                                 <ul class="collapse">
                                     <li><a href="#">Item level (1)</a></li>
                                     <li><a href="#">Item level (1)</a></li>
                                     <li>
-                                        <a href="#" aria-expanded="true">Item level (1)</a>
+                                        <a href="javascript:void(0)" class="has-arrow" aria-expanded="false">Item level (1)</a>
                                         <ul class="collapse">
                                             <li><a href="#">Item level (2)</a></li>
                                             <li><a href="#">Item level (2)</a></li>
@@ -215,6 +217,7 @@
     <script>
         zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
         ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+        $('#menu').metisMenu().on('show.metisMenu', function (e) { $(e.target).siblings('a').children('svg[data-icon=angle-left]').removeClass('fa-angle-left').addClass('fa-angle-down'); }).on('hide.metisMenu', function (e) { $(e.target).siblings('a').children('svg[data-icon=angle-down]').removeClass('fa-angle-down').addClass('fa-angle-left'); });
     </script>
     <!-- all line chart activation -->
     <script src="~/assets/js/line-chart.js"></script>

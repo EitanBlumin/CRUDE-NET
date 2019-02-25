@@ -27,6 +27,7 @@ namespace CrudePortal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Microsoft.AspNetCore.Authentication.AuthenticationBuilder authBuilder;
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -42,28 +43,38 @@ namespace CrudePortal
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddAuthentication()
-                .AddMicrosoftAccount(microsoftOptions =>
+            authBuilder = services.AddAuthentication();
+
+            if (!String.IsNullOrEmpty(Configuration["Authentication:Microsoft:ClientSecret"]))
+                authBuilder.AddMicrosoftAccount(microsoftOptions =>
                 {
                     microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ClientId"];
                     microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
-                })
-                .AddGoogle(googleOptions =>
+                });
+
+            if (!String.IsNullOrEmpty(Configuration["Authentication:Google:ClientSecret"]))
+                authBuilder.AddGoogle(googleOptions =>
                 {
                     googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
                     googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                })
-                .AddFacebook(facebookOptions =>
+                });
+
+            if (!String.IsNullOrEmpty(Configuration["Authentication:Facebook:ClientSecret"]))
+                authBuilder.AddFacebook(facebookOptions =>
                 {
                     facebookOptions.AppId = Configuration["Authentication:Facebook:ClientId"];
                     facebookOptions.AppSecret = Configuration["Authentication:Facebook:ClientSecret"];
-                })
-                .AddTwitter(twitterOptions =>
+                });
+
+            if (!String.IsNullOrEmpty(Configuration["Authentication:Twitter:ClientSecret"]))
+                authBuilder.AddTwitter(twitterOptions =>
                 {
                     twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ClientId"];
                     twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ClientSecret"];
-                })
-                .AddOAuth("LinkedIn", "LinkedIn", oauthOptions =>
+                });
+
+            if (!String.IsNullOrEmpty(Configuration["Authentication:LinkedIn:ClientSecret"]))
+                authBuilder.AddOAuth("LinkedIn", "LinkedIn", oauthOptions =>
                 {
                     oauthOptions.ClientId = Configuration["Authentication:LinkedIn:ClientId"];
                     oauthOptions.ClientSecret = Configuration["Authentication:LinkedIn:ClientSecret"];
